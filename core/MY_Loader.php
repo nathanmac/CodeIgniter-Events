@@ -93,7 +93,7 @@ class MY_Loader extends CI_Loader {
                 }
 
                 // Safety:  Was the class already loaded by a previous call?
-                if (in_array($subclass, $this->_ci_loaded_files)) {
+                if (in_array($subclass, $this->_ci_library_paths)) {
                     // Before we deem this to be a duplicate request, let's see
                     // if a custom object name is being supplied.  If so, we'll
                     // return a new instance of the object
@@ -111,7 +111,7 @@ class MY_Loader extends CI_Loader {
 
                 include_once($baseclass);
                 include_once($subclass);
-                $this->_ci_loaded_files[] = $subclass;
+                $this->_ci_library_paths[] = $subclass;
 
                 return $this->_ci_init_library($class, config_item('subclass_prefix'), $params, $object_name);
             }
@@ -127,7 +127,7 @@ class MY_Loader extends CI_Loader {
                 }
 
                 // Safety:  Was the class already loaded by a previous call?
-                if (in_array($filepath, $this->_ci_loaded_files)) {
+                if (in_array($filepath, $this->_ci_library_paths)) {
                     // Before we deem this to be a duplicate request, let's see
                     // if a custom object name is being supplied.  If so, we'll
                     // return a new instance of the object
@@ -144,7 +144,7 @@ class MY_Loader extends CI_Loader {
                 }
 
                 include_once($filepath);
-                $this->_ci_loaded_files[] = $filepath;
+                $this->_ci_library_paths[] = $filepath;
                 return $this->_ci_init_library($class, '', $params, $object_name);
             }
         } // END FOREACH

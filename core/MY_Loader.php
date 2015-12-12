@@ -100,7 +100,7 @@ class MY_Loader extends CI_Loader {
                     if (!is_null($object_name)) {
                         $CI = & get_instance();
                         if (!isset($CI->$object_name)) {
-                            return $this->_ci_init_class($class, config_item('subclass_prefix'), $params, $object_name);
+                            return $this->_ci_init_library($class, config_item('subclass_prefix'), $params, $object_name);
                         }
                     }
 
@@ -113,7 +113,7 @@ class MY_Loader extends CI_Loader {
                 include_once($subclass);
                 $this->_ci_loaded_files[] = $subclass;
 
-                return $this->_ci_init_class($class, config_item('subclass_prefix'), $params, $object_name);
+                return $this->_ci_init_library($class, config_item('subclass_prefix'), $params, $object_name);
             }
 
             // Lets search for the requested library file and load it.
@@ -134,7 +134,7 @@ class MY_Loader extends CI_Loader {
                     if (!is_null($object_name)) {
                         $CI = & get_instance();
                         if (!isset($CI->$object_name)) {
-                            return $this->_ci_init_class($class, '', $params, $object_name);
+                            return $this->_ci_init_library($class, '', $params, $object_name);
                         }
                     }
 
@@ -145,7 +145,7 @@ class MY_Loader extends CI_Loader {
 
                 include_once($filepath);
                 $this->_ci_loaded_files[] = $filepath;
-                return $this->_ci_init_class($class, '', $params, $object_name);
+                return $this->_ci_init_library($class, '', $params, $object_name);
             }
         } // END FOREACH
         // One last attempt.  Maybe the library is in a subdirectory, but it wasn't specified?

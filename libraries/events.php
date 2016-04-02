@@ -76,7 +76,9 @@ class Events {
 	public static function trigger($event, $data = '', $return_type = 'string')
 	{
 		self::log_message('debug', 'Events::trigger() - Triggering event "'.$event.'"');
-
+                
+                $descriptor = self::getEventDescriptor($data,$event,$return_type);
+                
 		$calls = array();
 
 		if (self::has_listeners($event))
@@ -85,13 +87,31 @@ class Events {
 			{
 				if (is_callable($listener))
 				{
-					$calls[] = call_user_func($listener, $data);
+					$calls[] = call_user_func($listener, $data,$descriptor);
 				}
 			}
 		}
 
 		return self::_format_return($calls, $return_type);
 	}
+        
+        /**
+         * Return event descriptor
+         * @param type $data
+         * @param type $eventName
+         * @param type $return_type
+         */
+        
+        public static function getEventDescriptor(&$data,$eventName,$return_type){
+          
+                $descriptor = array(
+                    'event'=>$eventName,
+                    'return_type'=>$return_type
+                );
+                return $descriptor;
+       
+            
+        }
 
 	// ------------------------------------------------------------------------
 
